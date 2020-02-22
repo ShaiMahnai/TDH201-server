@@ -62,8 +62,6 @@ namespace TDH.Managers
                         }
                         catch (Exception e)
                         {
-
-                            throw;
                         }
                     }
                     else

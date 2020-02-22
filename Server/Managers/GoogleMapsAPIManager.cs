@@ -57,21 +57,15 @@ namespace TDH.Managers
                 GeoCodeResponse geoCodeResponse = GetStreetCoordinates(street);
                 if (geoCodeResponse != null)
                 {
-                    //if (geoCodeResponse.results[0].geometry.bounds != null)
-                    //{
-
-                    //    coordinates = new List<LatLng>()
-                    //    {geoCodeResponse.results[0].geometry.bounds.northeast,
-                    //    geoCodeResponse.results[0].geometry.bounds.southwest };
-                    //}
-                    //else
-                    //{
-                        coordinates = new List<LatLng>() {
+                    coordinates = new List<LatLng>() {
                             new LatLng() {
                                 lat =geoCodeResponse.results[0].geometry.location.lat,
                                 lng = geoCodeResponse.results[0].geometry.location.lng
                                               } };
-                   // }
+                }
+                else
+                {
+                    coordinates = new List<LatLng>() { };
                 }
             }
             catch (Exception e)
