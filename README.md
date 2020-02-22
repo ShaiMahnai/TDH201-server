@@ -1,4 +1,6 @@
 # TDH201-server
+This project was build with .Net Core 3.1.
+
 To run project: 
 1. Visit https://github.com/dotnet/core/blob/master/README.md and make sure you meet the requirements.
 2. Clone the project
