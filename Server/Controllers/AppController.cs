@@ -50,7 +50,11 @@ namespace Server.Controllers
             StreetCoordinatesManager oStreetCoordinatesManager = new StreetCoordinatesManager();
             GetStreetCoordinatesListResponse getStreetCoordinatesListResponse = oStreetCoordinatesManager.GetStreetCoordinatesList(lst);
             oFilesManager.Write("streetsCoordinates.json", getStreetCoordinatesListResponse.Succes);
-            oFilesManager.Write("missingStreetsCoordinates.txt", getStreetCoordinatesListResponse.Failed);
+            if (getStreetCoordinatesListResponse.Failed.Count > 0)
+            {
+                oFilesManager.Write("missingStreetsCoordinates.txt", getStreetCoordinatesListResponse.Failed);
+
+            }
             return getStreetCoordinatesListResponse;
         }
 
@@ -87,7 +91,7 @@ namespace Server.Controllers
         public class GetAvailableRespones
         {
             public List<int> Decades { get; set; }
-            public  List<string> Neighborhoods { get; set; }
+            public List<string> Neighborhoods { get; set; }
         }
 
 

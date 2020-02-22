@@ -23,9 +23,27 @@ namespace TDH.Managers
         }
         public List<StreetsApiIResponse> GetAllStreets()
         {
-            //string response = System.IO.File.ReadAllText(@"C:\Users\shaik\Downloads\street-names.json");
+            string response = "";
+            Guid g = Guid.NewGuid();
+            string GuidString = Convert.ToBase64String(g.ToByteArray());
+            GuidString = GuidString.Replace("=", "");
+            GuidString = GuidString.Replace("+", "");
+            Uri uri = new Uri(URL + "?email=" + GuidString + "@gmail.com", UriKind.Absolute);
+            bool success = false;
+            while (!success)
+            {
+                try
+                {
+                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
+                    success = true;
+                    response = oHttpRequestsManager.Get(request);
 
-            string response = oHttpRequestsManager.Get(address: URL);
+                }
+                catch (Exception e)
+                {
+
+                }
+            }
             response = response.Replace("}{", "},{");
 
 
@@ -42,7 +60,7 @@ namespace TDH.Managers
                 {
 
                     streetsApiIResponseToAdd = item.ToObject<StreetsApiIResponse>();
-                    string primaryname = ((string)item["primary-name"]).Trim(charsToTrim).Replace("-"," ");
+                    string primaryname = ((string)item["primary-name"]).Trim(charsToTrim).Replace("-", " ");
                     string secondaryname = ((string)item["secondary-name"]).Contains('(') ? "" : ((string)item["secondary-name"]).Trim(charsToTrim).Replace("-", " ");
                     string title = ((string)item["title"]).Trim(charsToTrim).Replace("-", " ");
                     streetsApiIResponseToAdd.Name = string.IsNullOrEmpty(title) ? "" : title + " ";

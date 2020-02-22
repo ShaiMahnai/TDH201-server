@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using TDH.Objects;
 using static Server.Managers.StreetCoordinatesManager;
 using static TDH.Objects.GeoCodeResponse.Result.Geometry;
@@ -31,7 +32,10 @@ namespace TDH.Managers
             {
                 try
                 {
-                    response = oHttpRequestsManager.Get(address: requestUri);
+                    //Uri uri = new Uri(address, UriKind.Absolute);
+                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(requestUri);
+                    request.UserAgent = "DHC 1 contact mahnai@post.bgu.ac.il";
+                    response = oHttpRequestsManager.Get(request);
                     success = true;
                 }
                 catch (Exception e)
@@ -137,12 +141,10 @@ namespace TDH.Managers
         {
             List<LatLng> coordinates = null;
             bool succes = false;
-            bool enterSecondTime = false;
             string[] nameArr = street.Split(' ');
             while (!succes && nameArr.Length > 0)
             {
-                //try to call the same request over and over with split the street's name 
-                //so "דוד בן גוריון"  not count but "בן גוריון" do
+
                 string name = string.Join(" ", nameArr);
                 coordinates = GetStreetCoordinates(name);
                 if (coordinates.Count > 0)
@@ -151,11 +153,17 @@ namespace TDH.Managers
                 }
                 else
                 {
-                    enterSecondTime = true;
-                    nameArr = nameArr.Skip(1).ToArray();
-                    string[] badArr = {
+                    //try to call the same request over and over with split the street's name 
+                    //so "דוד בן גוריון"  not count but "בן גוריון" do
+                    List<string> badArr = (new string[] { //thus names are not good to be splited, because they bring other sreets's names results if cplit
                             "שמעון בן שטח", "אסתר המלכה", "פלורי אשר", "בת שבע בן אליהו",
-                            "אביתר הכהן","אורות ישראל","פולה בן גוריון" };
+                            "אביתר הכהן","אורות ישראל","פולה בן גוריון" }).ToList();
+                    if (street.Contains("כהן"))
+                    {
+                        badArr.Add(street);
+                    }
+                    nameArr = nameArr.Skip(1).ToArray();
+                 
                     if (nameArr.Length > 0 && badArr.Contains(street))
                     {
                         nameArr = new string[] { };

@@ -11,39 +11,26 @@ namespace TDH.Managers
     class HttpRequestsManager
     {
 
-        public string Get(string address)
+        public string Get(HttpWebRequest request)
         {
             string html = string.Empty;
             bool success = false;
             while (success == false)
             {
 
-                try
+
+
+                request.AutomaticDecompression = DecompressionMethods.GZip;
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                using (Stream stream = response.GetResponseStream())
+                using (StreamReader reader = new StreamReader(stream))
                 {
-
-                    Guid g = Guid.NewGuid();
-                    string GuidString = Convert.ToBase64String(g.ToByteArray());
-                    GuidString = GuidString.Replace("=", "");
-                    GuidString = GuidString.Replace("+", "");
-
-                    Uri uri = new Uri(address+ "?email=" + GuidString + "@gmail.com", UriKind.Absolute);
-
-                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
-                    request.AutomaticDecompression = DecompressionMethods.GZip;
-                    using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
-                    using (Stream stream = response.GetResponseStream())
-                    using (StreamReader reader = new StreamReader(stream))
-                    {
-                        html = reader.ReadToEnd();
-                        success = true;
-                    }
-                }
-
-                catch (Exception e)
-                {
-
+                    html = reader.ReadToEnd();
+                    success = true;
                 }
             }
+
+
             return html;
         }
     }

@@ -25,9 +25,32 @@ namespace TDH.Managers
         {
             try
             {
-
+                string response = "";
                 //string response = System.IO.File.ReadAllText(@"C:\Users\shaik\Downloads\addresses.json");
-                string response = oHttpRequestsManager.Get(address: URL);
+
+                Guid g = Guid.NewGuid();
+                string GuidString = Convert.ToBase64String(g.ToByteArray());
+                GuidString = GuidString.Replace("=", "");
+                GuidString = GuidString.Replace("+", "");
+                Uri uri = new Uri(URL + "?email=" + GuidString + "@gmail.com", UriKind.Absolute);
+                //Uri uri = new Uri(address, UriKind.Absolute);
+
+                //request.UserAgent = "DHC 1 contact mahnai@post.bgu.ac.il";
+                bool success = false;
+                while (!success)
+                {
+                    try
+                    {
+                        HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
+                        success = true;
+                        response = oHttpRequestsManager.Get(request);
+
+                    }
+                    catch (Exception e)
+                    {
+                    }
+                }
+             
                 response = response.Replace("}{", "},{");
                 var arrayOfAddress = JsonConvert.DeserializeObject<AddressApiResponse[]>(response);
                 var res = arrayOfAddress.ToList();

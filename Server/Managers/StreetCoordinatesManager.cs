@@ -44,11 +44,16 @@ namespace Server.Managers
                 }
                 if (succes)
                 {
-                    int decadeOfApprovementMeeting = 
+                    int decadeOfApprovementMeeting =
                         Helpers.DateTimeHelper.GetDecade(item.DateOfApprovementMeeting);
+                    bool exist = item.status.Equals("קיים");
+                    if (!exist)
+                    {
+
+                    }
                     StreetCoordinates resStreetCoordinates = new StreetCoordinates(
-                        item.Name, item.neighborhood, decadeOfApprovementMeeting,
-                        item.IsNamedAfterWoman, coordinates);
+                        item.Name, item.neighborhood, item.DateOfApprovementMeeting,
+                        decadeOfApprovementMeeting, item.IsNamedAfterWoman, exist, coordinates);
                     streetCoordinatesList.Add(resStreetCoordinates);
                 }
                 else
@@ -74,19 +79,23 @@ namespace Server.Managers
         public class StreetCoordinates
         {
 
-            public StreetCoordinates(string name, string neighborhood, int decadeOfApprovementMeeting, bool isNamedAfterWoman, List<LatLng> coordinates)
+            public StreetCoordinates(string name, string neighborhood, DateTime dateOfApprovementMeeting, int decadeOfApprovementMeeting, bool isNamedAfterWoman, bool exist, List<LatLng> coordinates)
             {
                 Name = name;
                 Neighborhood = neighborhood;
+                DateOfApprovementMeeting = dateOfApprovementMeeting;
                 Decade = decadeOfApprovementMeeting;
                 IsNamedAfterWoman = isNamedAfterWoman;
+                Exist = exist;
                 Coordinates = coordinates;
             }
 
             public string Name { get; set; }
             public string Neighborhood { get; set; }
+            public DateTime DateOfApprovementMeeting { get; set; }
             public int Decade { get; set; }
             public bool IsNamedAfterWoman { get; set; }
+            public bool Exist { get; set; }
             public List<LatLng> Coordinates { get; set; }
         }
     }
