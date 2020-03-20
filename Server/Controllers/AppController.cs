@@ -17,7 +17,7 @@ namespace Server.Controllers
     [Route("api/[controller]")]
     public class AppController : Controller
     {
-        // GET: api/<controller>
+        // GET: api/App
         [HttpGet]
         public IActionResult Get()
         {
@@ -33,14 +33,9 @@ namespace Server.Controllers
             var json = oFilesManager.Read("streetsCoordinates.json");
             return JsonConvert.DeserializeObject<List<StreetCoordinates>>(json);
         }
-        // GET api/<controller>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
 
-        // POST api/<controller>
+
+        // POST api/App
         [HttpPost]
         public dynamic Post()
         {
@@ -60,6 +55,7 @@ namespace Server.Controllers
 
 
         [HttpGet("GetAvailableSelections")]
+        // Get api/App/GetAvailableSelections
         public GetAvailableRespones GetAvailableSelections()
         {
             List<StreetCoordinates> streetsCoordinates = GetStreetsCoordinates();

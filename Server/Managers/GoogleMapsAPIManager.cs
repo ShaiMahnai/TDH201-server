@@ -92,7 +92,7 @@ namespace TDH.Managers
                 using (Stream stream = response.GetResponseStream())
                 {
                     StreamReader reader = new StreamReader(stream, Encoding.UTF8);
-                    String responseString = reader.ReadToEnd();
+                    string responseString = reader.ReadToEnd();
                     var res = JsonConvert.DeserializeObject<GeoCodeResponse>(responseString);
                     return res;
                 }

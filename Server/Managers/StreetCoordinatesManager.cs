@@ -47,10 +47,7 @@ namespace Server.Managers
                     int decadeOfApprovementMeeting =
                         Helpers.DateTimeHelper.GetDecade(item.DateOfApprovementMeeting);
                     bool exist = item.status.Equals("קיים");
-                    if (!exist)
-                    {
-
-                    }
+    
                     StreetCoordinates resStreetCoordinates = new StreetCoordinates(
                         item.Name, item.neighborhood, item.DateOfApprovementMeeting,
                         decadeOfApprovementMeeting, item.IsNamedAfterWoman, exist, coordinates);
