@@ -8,12 +8,12 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using TDH.Objects;
+using Server.Objects;
 using static Server.Managers.StreetCoordinatesManager;
-using static TDH.Objects.GeoCodeResponse.Result;
-using static TDH.Objects.GeoCodeResponse.Result.Geometry;
+using static Server.Objects.GeoCodeResponse.Result;
+using static Server.Objects.GeoCodeResponse.Result.Geometry;
 
-namespace TDH.Managers
+namespace Server.Managers
 {
     class GoogleMapsAPIManager
     {

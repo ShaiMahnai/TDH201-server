@@ -17,5 +17,15 @@ namespace Server.Helpers
             }
             return (year / 10 * 10);
         }
+        public static int GetYear(DateTime date)
+        {
+            int year = date.Year;
+            int decade = (year / 10 * 10);
+            if (decade == 0)
+            {
+
+            }
+            return year;
+        }
     }
 }

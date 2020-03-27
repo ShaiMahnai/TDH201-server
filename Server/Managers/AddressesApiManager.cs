@@ -6,10 +6,10 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using TDH.Objects;
-using static TDH.Objects.GeoCodeResponse.Result.Geometry;
+using Server.Objects;
+using static Server.Objects.GeoCodeResponse.Result.Geometry;
 
-namespace TDH.Managers
+namespace Server.Managers
 {
     class AddressesApiManager
     {

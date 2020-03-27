@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TDH.Managers;
-using TDH.Objects;
-using static TDH.Managers.OpenStreetMapAPIManager;
-using static TDH.Objects.GeoCodeResponse.Result.Geometry;
+using Server.Objects;
+using static Server.Objects.GeoCodeResponse.Result.Geometry;
 
 namespace Server.Managers
 {

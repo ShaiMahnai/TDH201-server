@@ -5,10 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Server.Managers;
-using TDH.Managers;
-using TDH.Objects;
+using Server.Objects;
+using static Server.Managers.ConclusionsManager;
 using static Server.Managers.StreetCoordinatesManager;
-using static TDH.Managers.OpenStreetMapAPIManager;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -83,6 +82,14 @@ namespace Server.Controllers
             return getAvailableRespones;
         }
 
+        [HttpGet("GetProjectConclusions")]
+        // Get api/App/GetProjectConclusions
+        public GetProjectConclusionsRespones GetProjectConclusions()
+        {
+            List<StreetCoordinates> streetsCoordinates = GetStreetsCoordinates();
+            ConclusionsManager oConclusionsManager = new ConclusionsManager();
+            return oConclusionsManager.GetProjectConclusions(streetsCoordinates);
+        }
 
         public class GetAvailableRespones
         {
@@ -90,6 +97,7 @@ namespace Server.Controllers
             public List<string> Neighborhoods { get; set; }
         }
 
+   
 
     }
 }
