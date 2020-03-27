@@ -5,12 +5,13 @@ To run project:
 1. Visit https://github.com/dotnet/core/blob/master/README.md and make sure you meet the requirements.
 2. Clone the project
 3. Run locally
+4. To Repreduce the most updated list - send post request to api/App
 
 About the Project:
 
 The project was built as part of the Digital Humanities course as part of the undergraduate degree in computer science at Ben Gurion University, Beer Sheva: https://www.cs.bgu.ac.il/~tdh201/Main
 
-This is the server side of a project that aims to show the development of the city of Beer Sheva throughout history, on a map. URL: https://tdh201-cfc16.firebaseapp.com
+This is the server side of a project that aims to show the development of the city of Beer Sheva throughout history, on a map. URL: https://api.myjson.com/bins/f60p8
 
 As part of our server-side work, we created a .NET Core project in C#, presented here.
 
@@ -30,6 +31,5 @@ We found the information in OpenStreetMap to be more accurate and efficient (ret
 
 After processing the data, we put it in easy-to-use Json form, both for our site and as a public service.
 
-Request To Get Data:
-Get Request to:
+To get the data we produce in the server running (ssame as sending Get request to api/App when running the project): https://api.myjson.com/bins/f60p8
 
